@@ -580,14 +580,14 @@
 
 
                 // in y axis group, add y axis title
-                yAxisG.append("text")
+                /*yAxisG.append("text")
                     .attr("class", "title")
                     .attr("transform", "translate(" + (-margin.right+150) + ", " + (-margin.top / 3 - 10) + ")")
                     .attr("dy", ".71em")
                     .text(function(d) {
                       var text = yTitle == undefined ? "" : yTitle;
                       return text;
-                    });
+                    });*/
 
                 var barG = main.append("g")
                     .attr("class", "barGroup")
@@ -809,34 +809,35 @@
                                     opacity: 0
                                 });
                       });
-                
-                    d3.select('#yaxis')
-                        .data(data)
-                        .selectAll('.tick.major')
-                        .on('click',clickMe)
 
-                    function clickMe(d){alert(d);}
+
+
+
                   d3.selectAll('.y .tick')
                     .data(data)
                     .style("cursor", "pointer")
                     .on('mouseover', function(d, i) {
                         d3.select(this).style("stroke", function(d, i) {
+                            var categry = d3.select(this).text();
+                            //console.log(categry);
                             return "black";
                         });
 
                       })
-                    .on("click", (d, i) => {
-                      
-                      var categry = d.category;
-                      console.log(d.category);
-                        var filtered_data = {"data":[]};
-                        for(var j=0;j<data.length;j++){
-                            var st = JSON.stringify(data[j].full);
-                            if(st.indexOf(categry)!=-1){
-                                filtered_data['data'].push(data[j].full)
+                    .on("click", function(d, i) {
+
+                      d3.select(this).style("stroke", function(d, i) {
+                            var categry = d3.select(this).text();
+                            var filtered_data = {"data":[]};
+                            for(var j=0;j<data.length;j++){
+                                var st = JSON.stringify(data[j].full);
+                                if(st.indexOf(categry)!=-1){
+                                    filtered_data['data'].push(data[j].full)
+                                }
                             }
-                        }
-                        plotChart(filtered_data,d.category+" Sentiment Analysis");
+                            plotChart(filtered_data,categry+" Sentiment Analysis");
+                            return "black";
+                      });
                         
                     })
                     .on("mouseleave", function(d,i) {
