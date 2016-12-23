@@ -18,8 +18,8 @@ First, we want to visualize the articles using dots with opacity 0.5. Now we loo
       
 # Steps for installing Python Packages and Modules
   1.  Install pip (Note: Python 2.7.9+ and 3.4+ comes with pip installed)
-      Install instruction: Download and run 'get-pip.py' (https://bootstrap.pypa.io/get-pip.py)
-      Reference: https://pip.pypa.io/en/stable/installing/#do-i-need-to-install-pip
+        Install instruction: Download and run 'get-pip.py' (https://bootstrap.pypa.io/get-pip.py)
+        Reference: https://pip.pypa.io/en/stable/installing/#do-i-need-to-install-pip
   2.  Run command prompt/ terminal and execute following commands:
   
         1.  pip install flask
