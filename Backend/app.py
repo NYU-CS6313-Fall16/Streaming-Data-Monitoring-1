@@ -37,7 +37,7 @@ def get_sector_articles(message):
             continue
         articleDate = parser.parse(artcle['_source']['harvested_at'])
         compareDate = datetime(articleDate.year, articleDate.month, articleDate.day, tzinfo=tz.tzutc())
-        if compareDate == current:
+        if compareDate >= current:
             if artcle['_source']['entities'][0]['ticker'] not in companySet:
                 companySet[artcle['_source']['entities'][0]['ticker']] = 0
             else:
@@ -62,7 +62,7 @@ def get_allSector_articles(message):
     for artcle in responseData:
         articleDate = parser.parse(artcle['_source']['harvested_at'])
         compareDate = datetime(articleDate.year, articleDate.month, articleDate.day, tzinfo=tz.tzutc())
-        if compareDate == current:
+        if compareDate >= current:
             dicto['hits'].append(artcle)
     emit('receiveAllSectorArticle', {'data': dicto['hits']})
 

@@ -135,6 +135,7 @@
             height: 180px;
             padding: 10px 30px 10px 30px;
             text-align: center;
+            position:relative;
         }
         ul{
             padding-left: 100px;
@@ -196,8 +197,7 @@
               <li id="first-mention">First-Mention: </li>
             </ul>
           </div>
-        </div>
-
+    </div>
     <div align="left" >
         <b>Monitoring Mode</b><br>
         <label class="switch">
@@ -299,7 +299,6 @@
 
     // convert objects into cloudlines items and display
     var cloudLines = function (data){
-        console.log("Data Length: "+data.length);
 
         wise = 'sector';
         if(wiseChange){
@@ -310,22 +309,30 @@
             chart.yTitle("Sector");
             document.getElementById('yaxisdesc').innerHTML = '<b>Sectorwise Distribution</b>';
         }
+        for(var j=allSectors.length-1; j>=0;j--){
+
+            if(chart.yDomain().indexOf(allSectors[j])==-1){
+                 yArr.push(allSectors[j]);
+            }
+
+        }
+        chart.yDomain(yArr);
         for(var i=0; i<data.length;i++){
 
             var d = data[i]._source;
              
             var now = new Date(d["harvested_at"]);
             let entities = d.entities.map(function(entity){ return entity["sector"]});
-            if(chart.yDomain().indexOf(entities[0])==-1){
+            if(chart.yDomain().indexOf(entities[0])!=-1){
 
-                 yArr.push(entities[0]);
-                 chart.yDomain(yArr);
+                 //yArr.push(entities[0]);
+                 //chart.yDomain(yArr);
 
-            }
+
 
             var obj = {
                     time: now,
-                    color: color(chart.yDomain().indexOf(entities[0])),
+                    color: color(0),
                     category: entities[0],
                     type: "circle",
                     size: (Math.round(12)),
@@ -334,6 +341,7 @@
 
             // display the data item onto chart
             chart.datum(obj);
+            }
       }
     }
     
@@ -373,7 +381,7 @@
 
             var obj = {
                     time: now,
-                    color: color(chart.yDomain().indexOf(entities[0])),
+                    color: color(0),
                     category: entities[0],
                     type: "circle",
                     size: (Math.round(12)),
@@ -390,7 +398,7 @@
     }
 
     socket.on('connect', function() {
-        socket.emit('get_allSector_articles', {data: ''});
+        getAllsectors();
     });
 
     socket.on('my_response', function(msg) {
@@ -406,7 +414,7 @@
                    
         allSectors = msg.data;
         if(monitoringMode){
-            sectorwiseEvents();
+            socket.emit('get_allSector_articles', {data: ''});
         }
 
     });
@@ -426,7 +434,7 @@
             wiseChange = true;
             wise = 'sector';
             cloudLines(msg.data);
-            setTimeout(getAllsectors,30000);
+            setTimeout(sectorwiseEvents,30000);
         }
 
     });
@@ -448,7 +456,7 @@
         }
         
     }
-        //["Finance","Health Care","Technology","Capital Goods","Consumer Services","Public Utilities","Energy","Basic Industries","Consumer Non-Durables","Consumer Durables","Miscellaneous","Transportation"]
+
     
     function sectorEvent(){
         socket.emit('get_allSector_articles', {data: 'I\'m connected!'});
@@ -760,28 +768,7 @@
                         return "bar-" + barId++;
                       })
                       .on("click", (d, i) => {
-                        let info;
-                        if((d.full.entities[0].region=="n/a" || d.full.entities[0].region=="N/A") && (d.full.entities[0].sector=="n/a" || d.full.entities[0].sector=="N/A")){
-                            info = [d.full.entities[0].name, d.full.entities[0].ticker];
-                        }else if(d.full.entities[0].region=="n/a" || d.full.entities[0].region=="N/A"){
-                            info = [d.full.entities[0].name, d.full.entities[0].ticker, d.full.entities[0].sector];
-                        }else if(d.full.entities[0].sector=="n/a" || d.full.entities[0].sector=="N/A"){
-                            info = [d.full.entities[0].name, d.full.entities[0].ticker, d.full.entities[0].region];
-                        }else{
-                            info = [d.full.entities[0].name, d.full.entities[0].ticker, d.full.entities[0].region, d.full.entities[0].sector];
-                        }
-                        d3.select("#tooltip")
-                          .text('')
-                          .style({
-                            visibility: "visible",
-                            top: d3.event.clientY + 'px',
-                            left: d3.event.clientX + 'px'
-                        })
-                          .selectAll('p')
-                          .data(info)
-                          .enter()
-                            .append('p')
-                            .text(d => d)
+
                         displayInfo(d.full);
                       })
                       .on("mouseenter", function(d, i) {
