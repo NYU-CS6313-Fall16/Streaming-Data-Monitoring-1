@@ -28,7 +28,7 @@ First, we want to visualize the articles using dots with opacity 0.5. Now we loo
         4.  pip install elasticsearch
         5.  pip install eventlet
 
-# Steps for creating an indez in elasticsearch
+# Steps for creating an index in elasticsearch
   1.  Start Python 2.7.12 console
   2.  Run the following commands:
   
