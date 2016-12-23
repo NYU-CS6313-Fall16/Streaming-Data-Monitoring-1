@@ -40,8 +40,10 @@ First, we want to visualize the articles using dots with opacity 0.5. Now we loo
   1.  Clone this project in PyCharm
   2.  Goto 'Streaming-Data-Monitoring-1 -> Backend -> app.py' in the project directory
   3.  Right Click and run app.py (Note: This will run the Flask Server for the Visualization, it may take few seconds so wait untill its running then goto step 4)
+      - 'app.py' is the server program to service requests from the frontend
   4.  Goto 'Streaming-Data-Monitoring-1 -> Backend -> iviz.py' in the project directory
   5.  Right Click and run iviz.py
+      - 'iviz.py' is the script which downloads real time data using the ACCERN API and sends to app.py server to save it in elasticsearch and also broadcast it to all frontend running using websockets
   6.  Start web browser and start link: http://127.0.0.1:5000/
 (Note: Since the backend will start getting the data using ACCERN API, it will take some time to fill the main view depending on how fast ACCERN API provides the article data)
       
