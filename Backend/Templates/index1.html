@@ -233,11 +233,9 @@
         var box = document.getElementById('monitor');
         if(box.checked){
             monitoringMode = true;
-            modeChange = true;
             socket.emit('get_allSector_articles', {data: ''});
         }else{
             monitoringMode = false;
-            modeChange = true;
         }  
     }
         
