@@ -233,15 +233,18 @@
         var box = document.getElementById('monitor');
         if(box.checked){
             monitoringMode = true;
+            modeChange = true;
             socket.emit('get_allSector_articles', {data: ''});
         }else{
-            monitoringMode = false;    
+            monitoringMode = false;
+            modeChange = true;
         }  
     }
         
     var yArr = [];
     var wise = 'sector';
     var wiseChange = false;
+    var modeChange = false;
     var allSectors = [];
     var currentSector = 0;
     var storySaturation = '{"saturation":[{"high":"0.8","medium":"0.6","low":"0.4"}]}';
@@ -414,7 +417,11 @@
                    
         allSectors = msg.data;
         if(monitoringMode){
-            socket.emit('get_allSector_articles', {data: ''});
+            if(modeChange){
+                modeChange = false;
+            }else{
+                socket.emit('get_allSector_articles', {data: ''});
+            }
         }
 
     });
@@ -422,8 +429,12 @@
     socket.on('receiveSectorArticle', function(msg) {
         
         if(monitoringMode && msg.data.length > 0){
-            wiseChange = true;
-            cloudLinesCompanywise(msg.data);
+            if(modeChange){
+                modeChange = false;
+            }else{
+                wiseChange = true;
+                cloudLinesCompanywise(msg.data);
+            }
         }
 
     });
@@ -431,10 +442,14 @@
     socket.on('receiveAllSectorArticle', function(msg) {
                 
         if(monitoringMode){
-            wiseChange = true;
-            wise = 'sector';
-            cloudLines(msg.data);
-            setTimeout(sectorwiseEvents,30000);
+            if(modeChange){
+                modeChange = false;
+            }else{
+                wiseChange = true;
+                wise = 'sector';
+                cloudLines(msg.data);
+                setTimeout(sectorwiseEvents,30000);
+            }
         }
 
     });

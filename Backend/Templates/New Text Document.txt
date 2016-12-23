@@ -1,2 +1,0 @@
-RDDs generated in Question 2:
-(url, rank)
