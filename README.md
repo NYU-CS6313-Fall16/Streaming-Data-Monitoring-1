@@ -1,4 +1,4 @@
-# streaming-data-visualization
+# Streaming-Data-Visualization
 Streaming real time data using Accern API which consist of data captured from 20 million public websites or social medias. Basically, the unit is article. Similar articles can be grouped into stories which is about events happened on companies. The impact of the event is shown via an impact score representing the chance that an event may impact a company’s stock price by 1% at the end of trading day. 
 
 First, we want to visualize the articles using dots with opacity 0.5. Now we look for highly dense area over the timeline which indicates there are a number of articles for that company in a short period of time. This might indicate some major episode of events happening at the company. Sentiment of article describes if the article was written positively or negatively by the author. It ranges from -1 to 1. So after indentifying an event we use a line chart to visualize the sentiment for that highly dense area of articles, to check if episode is having negative or positive sentiment.
@@ -32,9 +32,9 @@ First, we want to visualize the articles using dots with opacity 0.5. Now we loo
   1.  Start Python 2.7.12 console
   2.  Run the following commands:
   
-      1.  from elasticsearch import Elasticsearch, RequestsHttpConnection
-      2.  es = Elasticsearch(['localhost:9200'],connection_class=RequestsHttpConnection)
-      3.  es.indices.create(index='articles')
+      - from elasticsearch import Elasticsearch, RequestsHttpConnection
+      - es = Elasticsearch(['localhost:9200'],connection_class=RequestsHttpConnection)
+      - es.indices.create(index='articles')
      
 ### Steps for starting the Visualization
   1.  Clone this project in PyCharm
