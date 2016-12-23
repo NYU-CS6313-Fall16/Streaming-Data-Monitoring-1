@@ -21,6 +21,7 @@ First, we want to visualize the articles using dots with opacity 0.5. Now we loo
       Install instruction: Download and run 'get-pip.py' (https://bootstrap.pypa.io/get-pip.py)
       Reference: https://pip.pypa.io/en/stable/installing/#do-i-need-to-install-pip
   2.  Run command prompt/ terminal and execute following commands:
+  
         1.  pip install flask
         2.  pip install flask_socketio
         3.  pip install flask_restful
@@ -30,6 +31,7 @@ First, we want to visualize the articles using dots with opacity 0.5. Now we loo
 # Steps for creating an indez in elasticsearch
   1.  Start Python 2.7.12 console
   2.  Run the following commands:
+  
       1.  from elasticsearch import Elasticsearch, RequestsHttpConnection
       2.  es = Elasticsearch(
              ['localhost:9200'],
