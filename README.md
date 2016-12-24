@@ -12,10 +12,6 @@ our project on to the server,we can able to use the above link)
   1.  Python 
       Version: 2.7.12
       Download Link: https://www.python.org/downloads/release/python-2712/
-  2.  PyCharm Community Edition 2016.2.3 (By IntelliJ)
-      JRE: 1.8.0_05-b13 amd64
-      JVM: Java HotSpot(TM) 64-Bit Server VM by Oracle Corporation
-      Download Link: https://www.jetbrains.com/pycharm/download/
   3.  Elasticsearch Database store
       Version: 5.0.2
       Download Link: https://www.elastic.co/downloads/elasticsearch
@@ -42,12 +38,12 @@ our project on to the server,we can able to use the above link)
       - es.indices.create(index='articles')
      
 ### Steps for starting the Visualization
-  1.  Clone this project in PyCharm
-  2.  Goto 'Streaming-Data-Monitoring-1 -> Backend -> app.py' in the project directory
-  3.  Right Click and run app.py (Note: This will run the Flask Server for the Visualization, it may take few seconds so wait untill its running then goto step 4)
+  1.  Clone this project 
+  2.  Start Terminal/cmd and goto the project 'Streaming-Data-Monitoring-1 -> Backend' in the project directory
+  3.  Run command: "python app.py runserver 0.0.0.0:5000" (Note: This will run the Flask Server for the Visualization, it may take few seconds so wait untill its running then goto step 4)
       - 'app.py' is the server program to service requests from the frontend
-  4.  Goto 'Streaming-Data-Monitoring-1 -> Backend -> iviz.py' in the project directory
-  5.  Right Click and run iviz.py
+  4.  Start another Terminal/cmd and goto the project 'Streaming-Data-Monitoring-1 -> Backend' in the project directory
+  5.  Run command: "python iviz.py"
       - 'iviz.py' is the script which downloads real time data using the ACCERN API and sends to app.py server to save it in elasticsearch and also broadcast it to all frontend running using websockets
   6.  Start web browser and start link: http://127.0.0.1:5000/
 (Note: Since the backend will start getting the data using ACCERN API, it will take some time to fill the main view depending on how fast ACCERN API provides the article data)
