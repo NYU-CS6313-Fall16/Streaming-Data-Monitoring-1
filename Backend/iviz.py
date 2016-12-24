@@ -4,7 +4,7 @@ import threading
 
 import time
 
-from Backend.app import es,socketio,app
+from elasticsearch import Elasticsearch, RequestsHttpConnection
 from requests import post
 
 def get_response_json_object(url, max):
@@ -27,7 +27,10 @@ def get_response_json_object(url, max):
             post('http://localhost:5000/api/article', json=d)
         time.sleep(0.18)
 
-
+es = Elasticsearch(
+    ['localhost:9200'],
+    connection_class=RequestsHttpConnection
+)
 re = es.search(index='articles', doc_type='article', body={"aggs": {"max_id": {"max": {"field": "id"}}}}, size=1)
 max_id = re['aggregations']['max_id']['value']
 print(max_id)

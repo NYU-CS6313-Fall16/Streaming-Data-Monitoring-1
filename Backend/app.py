@@ -4,9 +4,22 @@ eventlet.monkey_patch()
 from dateutil import parser
 from datetime import datetime
 from dateutil import tz
+from elasticsearch import Elasticsearch, RequestsHttpConnection
+from flask_restful import Resource
+from flask import render_template,request, Flask
+from flask_socketio import SocketIO, emit
+from flask_restful import Api
+import json
 
-from Backend.Mediator import *
-from Backend.Config import *
+es = Elasticsearch(
+    ['localhost:9200'],
+    connection_class=RequestsHttpConnection
+)
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'mysecret'
+app.config['threaded'] = True
+socketio = SocketIO(app, logger=True, engineio_logger=True)
 
 
 @app.route('/')
@@ -114,9 +127,28 @@ def get_company_articles(message):
           {'data': json.dumps(responseData, sort_keys = False, indent = 2)})
 
 api = Api(app)
+
+
+class Mediator(Resource):
+
+    def get(self,keyword=None):
+        return
+
+    def post(self):
+        print(request)
+        data = request.get_json()
+        print('Article indexed into elasticsearch...')
+        print(data)
+        es.index(index='articles', doc_type='article', body=data)
+        source = {}
+        newData = {'list': []}
+        source['_source']= data
+        newData['list'].append(source)
+        socketio.emit('my_response', {'data': newData['list']}, namespace='/articles',broadcast = True)
+
+
 api.add_resource(Mediator, "/api/article", endpoint="article")
 
 if __name__ == '__main__':
     socketio.run(app,host= '0.0.0.0', port=5000, debug=False)
     #socketio.run(app, debug=False)
-
