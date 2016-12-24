@@ -39,13 +39,13 @@ our project on to the server,we can able to use the above link)
      
 ### Steps for starting the Visualization
   1.  Clone this project 
-  2.  Start Terminal/cmd and goto the project 'Streaming-Data-Monitoring-1 -> Backend' in the project directory
+  2.  Start Terminal/cmd and goto the project 'Streaming-Data-Monitoring-1 -> Backend' location by using cd command
   3.  Run command: "python app.py runserver 0.0.0.0:5000" (Note: This will run the Flask Server for the Visualization, it may take few seconds so wait untill its running then goto step 4)
       - 'app.py' is the server program to service requests from the frontend
-  4.  Start another Terminal/cmd and goto the project 'Streaming-Data-Monitoring-1 -> Backend' in the project directory
+  4.  Start another Terminal/cmd and goto the project 'Streaming-Data-Monitoring-1 -> Backend' location by using cd command
   5.  Run command: "python iviz.py"
       - 'iviz.py' is the script which downloads real time data using the ACCERN API and sends to app.py server to save it in elasticsearch and also broadcast it to all frontend running using websockets
-  6.  Start web browser and start link: http://127.0.0.1:5000/
+  6.  Start web browser and start link: http://127.0.0.1:5000/ or http://yourIPaddress:5000/
 (Note: Since the backend will start getting the data using ACCERN API, it will take some time to fill the main view depending on how fast ACCERN API provides the article data)
       
 
