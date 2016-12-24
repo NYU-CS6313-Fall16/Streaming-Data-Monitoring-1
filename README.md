@@ -3,7 +3,10 @@ Streaming real time data using Accern API which consist of data captured from 20
 
 First, we want to visualize the articles using dots with opacity 0.5. Now we look for highly dense area over the timeline which indicates there are a number of articles for that company in a short period of time. This might indicate some major episode of events happening at the company. Sentiment of article describes if the article was written positively or negatively by the author. It ranges from -1 to 1. So after indentifying an event we use a line chart to visualize the sentiment for that highly dense area of articles, to check if episode is having negative or positive sentiment.
 
-### Demo with explanation Link:https://vimeo.com/196806769
+### Video Link:https://vimeo.com/196806769
+### Demo Link: http://nyuvis-web2.poly.edu/vis-fall2016/Streaming-Data-Monitoring-1
+(note:-For now we are still not able to deploy our server on neigher Heroku or our university’s server.Once our montor upload
+our project on to the server,we can able to use the above link)
 
 ### Tools and components used (recommended) to setup the visualization
   1.  Python 
